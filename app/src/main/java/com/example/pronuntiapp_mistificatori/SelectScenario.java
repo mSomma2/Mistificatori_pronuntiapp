@@ -150,6 +150,10 @@ public class SelectScenario extends AppCompatActivity {
 
     public void setScenario(View view) {
         myRef.child("scenario").setValue(scenarioSelected);
+        if(scenarioSelected.equals("A"))
+            myRef.child("personaggi/selezionato").setValue("A1");
+        else
+            myRef.child("personaggi/selezionato").setValue("B1");
         scenarioDefault = scenarioSelected;
         set.setText(SelectScenario.this.getString(R.string.selected));
         set.setBackgroundColor(SelectScenario.this.getColor(R.color.green_light));

@@ -1,6 +1,7 @@
 package com.example.pronuntiapp_mistificatori;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -10,6 +11,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -57,6 +59,12 @@ public class MappaBambino extends AppCompatActivity {
         codiceBimbo = getIntent().getStringExtra("codice");
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true); // Abilita il pulsante per tornare indietro
+            actionBar.setTitle(MappaBambino.this.getString(R.string.gioco));
+        }
 
         RelativeLayout sfondo = findViewById(R.id.sfondo);
 
@@ -339,5 +347,14 @@ public class MappaBambino extends AppCompatActivity {
         Intent i = new Intent(MappaBambino.this, rank.class);
         i.putExtra("codice", codiceBimbo);
         startActivity(i);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

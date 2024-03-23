@@ -59,4 +59,5 @@
     <string name="at">Alle: </string>
     <string name="rank">Classifica</string>
     <string name="punteggio">Punti: </string>
+    <string name="gioco">Gioco</string>
 </resources>
