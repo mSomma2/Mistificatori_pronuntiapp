@@ -56,5 +56,6 @@
     <string name="riconoscimento">TYPE: Recognition</string>
     <string name="scenario">Scenario</string>
     <string name="at">At: </string>
-
+    <string name="rank">Rank</string>
+    <string name="punteggio">Points: </string>
 </resources>

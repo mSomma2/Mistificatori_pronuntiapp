@@ -5,8 +5,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,6 +36,7 @@ public class Therapy extends AppCompatActivity {
     private FirebaseUser currentUser;
     private DatabaseReference myRef;
     private LinearLayout lista;
+    private int uiMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class Therapy extends AppCompatActivity {
         nome = getIntent().getStringExtra("nome");
 
         lista = findViewById(R.id.listTherapy);
+        uiMode = getResources().getConfiguration().uiMode;
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -95,7 +99,9 @@ public class Therapy extends AppCompatActivity {
                     LinearLayout bordi = childView.findViewById(R.id.bordo);
                     String clock = Therapy.this.getString(R.string.at) + time;
                     textViewTipo.setText(clock);
-                    bordi.setForeground(getResources().getDrawable(R.drawable.border_drawable_black));
+                    if((uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES)
+                        bordi.setForeground(getResources().getDrawable(R.drawable.border_drawable_white));
+                    else    bordi.setForeground(getResources().getDrawable(R.drawable.border_drawable_black));
                     ImageView result = childView.findViewById(R.id.esResult);
                     result.setVisibility(View.GONE);
 
@@ -112,6 +118,15 @@ public class Therapy extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void call(View view) {

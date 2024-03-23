@@ -336,7 +336,7 @@ public class MappaBambino extends AppCompatActivity {
     }
 
     public void rank(View view) {
-        Intent i = new Intent(MappaBambino.this, SelectScenario.class);
+        Intent i = new Intent(MappaBambino.this, rank.class);
         i.putExtra("codice", codiceBimbo);
         startActivity(i);
     }
