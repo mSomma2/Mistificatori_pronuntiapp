@@ -56,5 +56,6 @@
     <string name="sequenze">TIPO: Sequenze</string>
     <string name="riconoscimento">TIPO: Riconoscimento</string>
     <string name="scenario">Scenario</string>
+    <string name="at">Alle: </string>
 
 </resources>

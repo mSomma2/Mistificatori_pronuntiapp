@@ -78,6 +78,10 @@ public class MenuParent extends AppCompatActivity {
     }
 
     public void therapy(View view) {
+        Intent i = new Intent(MenuParent.this, Therapy.class);
+        i.putExtra("codice", codice);
+        i.putExtra("nome", nome);
+        startActivity(i);
     }
 
     public void correction(View view) {

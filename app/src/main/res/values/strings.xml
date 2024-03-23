@@ -55,6 +55,6 @@
     <string name="sequenze">TYPE: Sequences</string>
     <string name="riconoscimento">TYPE: Recognition</string>
     <string name="scenario">Scenario</string>
-
+    <string name="at">At: </string>
 
 </resources>
