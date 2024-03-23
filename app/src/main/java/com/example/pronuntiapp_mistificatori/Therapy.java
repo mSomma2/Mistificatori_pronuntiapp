@@ -119,9 +119,9 @@ public class Therapy extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String cell = snapshot.getValue(String.class);
+                String tel = snapshot.getValue(String.class);
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + cell));
+                intent.setData(Uri.parse("tel:" + tel));
                 startActivity(intent);
             }
 
