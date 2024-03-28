@@ -33,12 +33,16 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.loginButton);
         ErrorMail = findViewById(R.id.errorEmail);
 
+        //Fornisco l'accesso diretto all'app
+        mail.setText("mimma@gmail.com");
+        password.setText("Mimma1");
+        Toast.makeText(Login.this, "Accesso diretto, premere il tasto 'login' per accedere",Toast.LENGTH_LONG).show();
+
         mAuth = FirebaseAuth.getInstance();
 
         mail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override

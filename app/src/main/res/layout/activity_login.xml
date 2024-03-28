@@ -85,7 +85,6 @@
             android:backgroundTint="@color/red"
             android:textSize="19sp"
             android:onClick="logga"
-            android:enabled="false"
             android:textColor="@color/white"
             android:text="@string/login"/>
 

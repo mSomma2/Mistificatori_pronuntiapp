@@ -127,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
         buttonSubmit.setOnClickListener(v -> {
             // Gestisci l'azione del button qui
-            String codiceInserito = editTextCode.getText().toString();
+            String codice = editTextCode.getText().toString();
+            String codiceInserito = codice.replaceAll("[^a-zA-Z0-9]", "");
 
             String percorsoGenitoreFigli = "genitori/" + user.getUid() + "/figli";
 
@@ -141,13 +142,30 @@ public class MainActivity extends AppCompatActivity {
                         // Il codice è già presente nel database, mostra un Toast
                         Toast.makeText(MainActivity.this, "Il codice è già presente nel database", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Genera un nuovo ID univoco per il figlio
-                        String nuovoFiglioKey = databaseReference.push().getKey();
+                        DatabaseReference dbCtrl = FirebaseDatabase.getInstance("https://pronuntiapp---mistificatori-default-rtdb.europe-west1.firebasedatabase.app").getReference("logopedisti/ABC/Pazienti/"+codiceInserito);
+                        dbCtrl.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    String nuovoFiglioKey = databaseReference.push().getKey();
 
-                        // Aggiungi il codiceInserito alla lista dei figli sotto il nuovo ID
-                        assert nuovoFiglioKey != null;
-                        databaseReference.child(nuovoFiglioKey).setValue(codiceInserito);
-                        restartActivity();
+                                    // Aggiungi il codiceInserito alla lista dei figli sotto il nuovo ID
+                                    assert nuovoFiglioKey != null;
+                                    databaseReference.child(nuovoFiglioKey).setValue(codiceInserito);
+                                    restartActivity();
+                                } else {
+                                    // Il percorso non esiste nel database
+                                    Toast.makeText(MainActivity.this, "Codice non presente, contatta il tuo logopedista", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Gestione degli errori
+                                Toast.makeText(MainActivity.this, "Errore durante il recupero dei dati: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        // Genera un nuovo ID univoco per il figlio
                     }
                 }
 
@@ -223,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Errore nel recupero dei dati: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Codice invalido", Toast.LENGTH_SHORT).show();
             }
         });
     }
